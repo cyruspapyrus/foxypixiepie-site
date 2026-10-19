@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kissed prints · Angel baby meeemee (@foxypixiepie)</title>
+<meta name="description" content="Prints of my Instagram stills, kissed by me right where you choose and mailed with a letter I sign for you. Free US shipping.">
+<!-- Preview: delete the next line at launch. -->
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#140C0F">
+<link rel="canonical" href="https://foxypixiepie.com/shop/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%8B%3C/text%3E%3C/svg%3E">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Kissed prints · @foxypixiepie">
+<meta property="og:description" content="Pick a still, choose where I kiss it, and I'll mail it with a signed letter.">
+<meta property="og:url" content="https://foxypixiepie.com/shop/">
+<meta property="og:image" content="https://foxypixiepie.com/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@1,9..144,600,100,1&family=DM+Sans:opsz,wght@9..40,400..700&family=Caveat:wght@600&display=swap">
+<link rel="stylesheet" href="shop.css">
+</head>
+<body>
+
+<header class="bar">
+  <a class="back" href="../">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+    @foxypixiepie
+  </a>
+</header>
+
+<main class="shop">
+  <section class="intro">
+    <h1 class="title">Kissed prints</h1>
+    <p class="lede">Stills from my Instagram, printed, kissed by me right where you choose, and mailed with a letter I sign for you.</p>
+    <ol class="steps">
+      <li><span class="step-n">1</span><span><b>Pick a still</b> and a size, wallet to poster</span></li>
+      <li><span class="step-n">2</span><span><b>Tap the photo</b> where you want your kiss</span></li>
+      <li><span class="step-n">3</span><span><b>I kiss it</b>, sign your letter and ship it free in the US</span></li>
+    </ol>
+  </section>
+
+  <p class="preview-note" hidden>Preview: stand-in photos, and checkout isn't switched on yet.</p>
+
+  <ul class="grid" aria-label="Prints"></ul>
+
+  <section class="faq" aria-labelledby="faq-title">
+    <h2 id="faq-title" class="section-title">Good to know</h2>
+    <details>
+      <summary>Is it really kissed by you?</summary>
+      <p>Yes. I kiss every print by hand, right where you tapped, so no two are the same.</p>
+    </details>
+    <details>
+      <summary>What comes in the envelope?</summary>
+      <p>Your print and a letter I write and sign for you.</p>
+    </details>
+    <details>
+      <summary>Can I get a message written on the print?</summary>
+      <p>Yes, for $10. You'll type it at checkout, up to 80 characters, and I'll write it on your print by hand.</p>
+    </details>
+    <details>
+      <summary>How long does it take?</summary>
+      <p>I kiss, sign and pack every order myself, so it ships within 7–14 days. Shipping is free in the US. I can't ship internationally yet.</p>
+    </details>
+    <details>
+      <summary>What if it arrives damaged?</summary>
+      <p>Every print is one of a kind, so sales are final. If yours arrives damaged, email <a href="mailto:hello@foxypixiepie.com">hello@foxypixiepie.com</a> with a photo within 14 days and I'll send a new one.</p>
+    </details>
+  </section>
+</main>
+
+<footer class="foot">
+  <p>Questions? <a href="mailto:hello@foxypixiepie.com">hello@foxypixiepie.com</a></p>
+  <p><a href="policies/">Shipping, returns &amp; privacy</a> · &copy; 2026 @foxypixiepie</p>
+</footer>
+
+<dialog class="sheet" aria-labelledby="sheet-title">
+  <div class="sheet-inner">
+    <button class="close" type="button" aria-label="Close">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+
+    <div class="stage">
+      <div class="print" tabindex="0" aria-describedby="spot-status">
+        <div class="photo-wrap"><img class="photo" alt="" draggable="false"></div>
+        <img class="kiss ghost" src="kiss.svg" alt="" draggable="false" hidden>
+        <img class="kiss placed" src="kiss.svg" alt="" draggable="false" hidden>
+        <p class="hint"><span class="hint-kiss" aria-hidden="true"></span><span class="hint-text">Tap where you want your kiss</span></p>
+        <p class="any-badge" hidden>She picks the spot</p>
+      </div>
+      <p class="spot-status" id="spot-status" aria-live="polite"></p>
+      <div class="spot-actions">
+        <button class="text-btn" type="button" data-action="any">Let her choose</button>
+        <button class="text-btn" type="button" data-action="clear" hidden>Start over</button>
+      </div>
+    </div>
+
+    <div class="options">
+      <p class="eyebrow">Kissed print</p>
+      <h2 class="sheet-title" id="sheet-title"></h2>
+
+      <fieldset class="sizes">
+        <legend>Size</legend>
+        <div class="size-list"></div>
+      </fieldset>
+
+      <label class="addon">
+        <input type="checkbox" name="message">
+        <span class="addon-body">
+          <span class="addon-title">Add a handwritten message on your print</span>
+          <span class="addon-note">You'll write it at checkout, up to 80 characters.</span>
+        </span>
+        <span class="addon-price">+$10</span>
+      </label>
+
+      <dl class="summary"></dl>
+
+      <div class="buybar">
+        <button class="checkout" type="button" disabled>Choose your kiss spot</button>
+      </div>
+      <p class="fine">Free US shipping · Ships in 7–14 days · Add a tip at checkout if you like 💋</p>
+    </div>
+  </div>
+</dialog>
+
+<script src="catalog.js"></script>
+<script src="links.js"></script>
+<script src="shop.js"></script>
+</body>
+</html>

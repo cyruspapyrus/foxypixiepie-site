@@ -1,0 +1,198 @@
+/* foxypixiepie.com/shop — kissed prints.
+   Same palette as the link page; the product sheet is where buyers tap the photo
+   to choose where she kisses it. */
+
+:root{
+  --ink:#140C0F;    --ink-2:#1E1316;  --ink-3:#2A1C21;
+  --cream:#FFF6EE;  --paper:#FFFDF8;
+  --muted:rgba(255,246,238,.68);
+  --faint:rgba(255,246,238,.44);
+  --line:rgba(255,246,238,.14);
+  --cherry:#FF3D5E; --cherry-deep:#E0284A;
+  --on-cream:#1C1115;
+  --on-cream-muted:rgba(28,17,21,.56);
+
+  --r-sheet:24px; --r-card:16px; --r-chip:12px; --r-pill:999px;
+
+  --display:"Fraunces","Iowan Old Style",Georgia,serif;
+  --sans:"DM Sans","Helvetica Neue",Arial,sans-serif;
+  --hand:"Caveat","Bradley Hand","Segoe Print",cursive;
+
+  /* small kiss used as the cursor over the grid */
+  --kiss-cursor:url("kiss-cursor.png") 20 12, pointer;
+  color-scheme:dark;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;min-height:100vh;background:var(--ink);color:var(--cream);
+  font:400 16px/1.5 var(--sans);-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--cherry);outline-offset:3px}
+[hidden]{display:none !important}
+
+/* ── header ─────────────────────────────────────────────── */
+.bar{max-width:1040px;margin:0 auto;padding:16px 16px 0}
+.back{display:inline-flex;align-items:center;gap:6px;padding:8px 12px 8px 8px;border-radius:var(--r-pill);
+  color:var(--muted);text-decoration:none;font-weight:500;font-size:14px}
+.back:hover{color:var(--cream);background:var(--ink-3)}
+
+/* ── intro ──────────────────────────────────────────────── */
+.shop{max-width:1040px;margin:0 auto;padding:0 16px 56px}
+.intro{padding:20px 0 28px}
+.title{margin:0;font:italic 600 clamp(44px,11vw,72px)/.95 var(--display);letter-spacing:-.015em}
+.lede{max-width:34em;margin:14px 0 0;color:var(--muted);font-size:17px}
+.steps{list-style:none;margin:24px 0 0;padding:0;display:grid;gap:10px}
+.steps li{display:flex;align-items:flex-start;gap:12px;color:var(--muted);font-size:15px}
+.steps b{color:var(--cream);font-weight:600}
+.step-n{flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;
+  background:var(--ink-3);color:var(--cream);font:600 13px/1 var(--sans)}
+@media (min-width:760px){.steps{grid-template-columns:repeat(3,1fr);gap:20px}}
+
+.preview-note{margin:0 0 20px;padding:10px 14px;border:1px dashed var(--line);border-radius:var(--r-chip);
+  color:var(--muted);font-size:14px}
+
+/* ── grid of prints ─────────────────────────────────────── */
+.grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 14px}
+@media (min-width:760px){.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:36px 28px}}
+.tile{display:block;width:100%;padding:0;border:0;background:none;text-align:left;cursor:var(--kiss-cursor)}
+.tile-print{position:relative;display:block;aspect-ratio:4/5;padding:4%;background:var(--paper);
+  box-shadow:0 14px 30px rgba(0,0,0,.35),0 2px 6px rgba(0,0,0,.25);
+  transform:rotate(var(--tilt,0deg));transition:transform .25s ease}
+.tile-print img.photo{width:100%;height:100%;object-fit:cover;object-position:50% 30%}
+.tile-print .kiss{width:28%}
+.tile:hover .tile-print,.tile:focus-visible .tile-print{transform:rotate(0deg) translateY(-4px)}
+.tile-meta{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-top:14px}
+.tile-title{font-weight:600;font-size:15px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tile-note{color:var(--faint);font-weight:400}
+.tile-price{flex:none;color:var(--muted);font-size:14px}
+
+/* ── the kiss mark (grid, sheet, thanks and spot pages) ── */
+.kiss{position:absolute;left:var(--x,70%);top:var(--y,78%);width:var(--kw,30%);height:auto;
+  transform:translate(-50%,-50%) rotate(-8deg);mix-blend-mode:multiply;pointer-events:none;
+  -webkit-user-drag:none;user-select:none}
+
+/* ── FAQ & footer ───────────────────────────────────────── */
+.section-title{margin:64px 0 12px;font:italic 600 30px/1.1 var(--display)}
+.faq details{border-top:1px solid var(--line);padding:4px 0}
+.faq details:last-of-type{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;padding:14px 0;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:16px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--faint);font-weight:400;font-size:20px;line-height:1}
+.faq details[open] summary::after{content:"–"}
+.faq details p{margin:0 0 16px;color:var(--muted);max-width:38em}
+.foot{max-width:1040px;margin:0 auto;padding:24px 16px 48px;color:var(--faint);font-size:13px;text-align:center}
+.foot p{margin:4px 0}
+
+/* ── product sheet ──────────────────────────────────────── */
+.sheet{width:100%;max-width:100%;height:100%;max-height:100%;margin:0;padding:0;border:0;
+  background:var(--ink-2);color:var(--cream);overflow:auto;overscroll-behavior:contain}
+.sheet::backdrop{background:rgba(10,6,8,.72);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.sheet-inner{position:relative;display:grid;gap:8px;min-height:100%}
+.close{position:fixed;z-index:5;top:12px;right:12px;width:40px;height:40px;padding:0;border-radius:50%;
+  display:grid;place-items:center;border:1px solid var(--line);background:rgba(20,12,15,.6);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);cursor:pointer}
+
+.stage{display:flex;flex-direction:column;align-items:center;padding:60px 16px 0}
+.print{position:relative;width:min(100%,calc(var(--ar,.8) * 58vh));aspect-ratio:var(--ar,.8);padding:3.5%;
+  background:var(--paper);box-shadow:0 22px 50px rgba(0,0,0,.45),0 3px 10px rgba(0,0,0,.3);
+  touch-action:manipulation;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;
+  cursor:pointer;transition:width .25s ease}
+.print:focus-visible{outline-offset:6px}
+.photo-wrap{width:100%;height:100%;overflow:hidden;background:#ddd}
+.photo-wrap img{width:100%;height:100%;object-fit:cover;object-position:50% 30%;pointer-events:none}
+.print .kiss.ghost{opacity:.55}
+.print .kiss.placed{pointer-events:auto;touch-action:none;cursor:grab}
+.print .kiss.placed:active{cursor:grabbing}
+.print .kiss.placed.stamp{animation:stamp .28s cubic-bezier(.2,.9,.3,1.2)}
+@keyframes stamp{
+  from{opacity:0;transform:translate(-50%,-50%) rotate(-8deg) scale(1.35)}
+  to{opacity:1;transform:translate(-50%,-50%) rotate(-8deg) scale(1)}
+}
+.print.is-any .kiss.placed{opacity:.35;filter:grayscale(.2)}
+
+/* fine pointers get the kiss itself as the cursor */
+@media (hover:hover) and (pointer:fine){
+  .print{cursor:none}
+}
+
+.hint{position:absolute;left:50%;top:50%;z-index:2;transform:translate(-50%,-50%);margin:0;
+  display:flex;align-items:center;gap:10px;padding:10px 18px 10px 12px;border-radius:var(--r-pill);
+  background:rgba(20,12,15,.78);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  color:var(--cream);font:600 24px/1 var(--hand);white-space:nowrap;pointer-events:none;
+  box-shadow:0 8px 24px rgba(0,0,0,.35)}
+.hint-kiss{width:44px;height:28px;flex:none;background:url("kiss.svg") center/contain no-repeat;
+  animation:nudge 1.6s ease-in-out infinite}
+@keyframes nudge{0%,100%{transform:scale(1) rotate(-8deg)}50%{transform:scale(1.18) rotate(-8deg)}}
+.print.has-kiss .hint{display:none}
+.any-badge{position:absolute;left:50%;top:10%;z-index:2;transform:translateX(-50%);margin:0;padding:6px 14px;
+  border-radius:var(--r-pill);background:rgba(20,12,15,.78);color:var(--cream);
+  font:600 22px/1 var(--hand);white-space:nowrap;pointer-events:none}
+
+.spot-status{min-height:1.5em;margin:18px 0 0;color:var(--muted);font-size:15px;text-align:center}
+.spot-status b{color:var(--cream);font-weight:600}
+.spot-actions{display:flex;gap:6px;margin-top:4px}
+.text-btn{padding:8px 12px;border:0;border-radius:var(--r-pill);background:none;color:var(--muted);
+  font-size:14px;font-weight:500;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.text-btn:hover{color:var(--cream);background:var(--ink-3)}
+
+/* options */
+.options{padding:20px 16px 0;max-width:520px;width:100%;margin:0 auto}
+.eyebrow{margin:0;color:var(--faint);font-size:13px;font-weight:600}
+.sheet-title{margin:2px 0 0;font:italic 600 32px/1.1 var(--display)}
+.sheet-title .tile-note{font:400 16px/1 var(--sans);font-style:normal}
+
+.sizes{margin:22px 0 0;padding:0;border:0}
+.sizes legend{padding:0;margin-bottom:10px;color:var(--muted);font-size:14px;font-weight:600}
+.size-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.size{position:relative;display:flex;flex-direction:column;gap:2px;padding:10px 12px;border-radius:var(--r-chip);
+  border:1px solid var(--line);background:var(--ink-3);cursor:pointer;transition:border-color .15s ease,background-color .15s ease}
+.size input{position:absolute;opacity:0;pointer-events:none}
+.size-name{font-weight:600;font-size:15px}
+.size-dims{color:var(--faint);font-size:12px}
+.size-price{color:var(--muted);font-size:14px;font-variant-numeric:tabular-nums}
+.size:hover{border-color:rgba(255,246,238,.32)}
+.size:has(input:checked){border-color:var(--cream);background:var(--cream);color:var(--on-cream)}
+.size:has(input:checked) .size-dims,.size:has(input:checked) .size-price{color:var(--on-cream-muted)}
+.size:has(input:focus-visible){outline:2px solid var(--cherry);outline-offset:2px}
+
+.addon{display:flex;align-items:flex-start;gap:12px;margin-top:16px;padding:14px;border-radius:var(--r-chip);
+  border:1px solid var(--line);background:var(--ink-3);cursor:pointer}
+.addon input{flex:none;width:20px;height:20px;margin:2px 0 0;accent-color:var(--cherry)}
+.addon-body{display:flex;flex-direction:column;gap:2px;min-width:0}
+.addon-title{font-weight:600;font-size:15px}
+.addon-note{color:var(--faint);font-size:13px}
+.addon-price{flex:none;margin-left:auto;color:var(--muted);font-variant-numeric:tabular-nums}
+.addon:has(input:checked){border-color:rgba(255,61,94,.6)}
+
+.summary{display:grid;grid-template-columns:1fr auto;gap:6px 12px;margin:20px 0 0;font-size:15px}
+.summary dt{color:var(--muted)}
+.summary dd{margin:0;text-align:right;font-variant-numeric:tabular-nums}
+.summary .total{padding-top:10px;border-top:1px solid var(--line);color:var(--cream);font-weight:700;font-size:17px}
+
+.buybar{position:sticky;bottom:0;z-index:3;margin:18px -16px 0;padding:12px 16px 14px;
+  background:linear-gradient(to top,var(--ink-2) 78%,rgba(30,19,22,0))}
+.checkout{width:100%;min-height:56px;padding:0 20px;border:0;
+  border-radius:var(--r-chip);background:var(--cherry);color:#fff;font:700 17px/1 var(--sans);cursor:pointer;
+  box-shadow:0 10px 30px rgba(255,61,94,.28);transition:background-color .15s ease,transform .15s ease}
+.checkout:hover:not(:disabled){background:var(--cherry-deep)}
+.checkout:active:not(:disabled){transform:scale(.985)}
+.checkout:disabled{background:var(--ink-3);color:var(--muted);box-shadow:none;cursor:not-allowed}
+.fine{margin:4px 0 0;padding-bottom:28px;color:var(--faint);font-size:13px;text-align:center}
+
+@media (min-width:880px){
+  .sheet{width:min(1040px,94vw);height:auto;max-height:92vh;margin:auto;border-radius:var(--r-sheet);
+    box-shadow:0 40px 120px rgba(0,0,0,.6)}
+  .sheet-inner{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);align-items:start;gap:12px;min-height:0}
+  .close{position:absolute}
+  .stage{position:sticky;top:0;padding:40px 24px 32px}
+  .print{width:min(100%,calc(var(--ar,.8) * 70vh))}
+  .options{padding:48px 32px 0 8px}
+  .buybar{margin:18px 0 0;padding:12px 0 16px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none !important;transition-duration:.01ms !important}
+}

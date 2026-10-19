@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kiss spot · order lookup</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#140C0F">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%8B%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@1,9..144,600,100,1&family=DM+Sans:opsz,wght@9..40,400..700&family=Caveat:wght@600&display=swap">
+<link rel="stylesheet" href="../shop.css">
+<style>
+  /* For her, not for buyers: paste the client reference from a Stripe order and
+     see exactly where to kiss, in inches. Prints cleanly as a packing slip. */
+  .slip{max-width:640px;margin:0 auto;padding:24px 16px 56px}
+  .slip .title{font-size:clamp(40px,10vw,56px)}
+  .lookup{display:flex;gap:8px;margin-top:20px}
+  .lookup input{flex:1;min-width:0;min-height:48px;padding:0 14px;border-radius:var(--r-chip);border:1px solid var(--line);
+    background:var(--ink-3);color:var(--cream);font:500 16px/1 var(--sans)}
+  .lookup button{min-height:48px;padding:0 18px;border:0;border-radius:var(--r-chip);background:var(--cream);color:var(--on-cream);font-weight:700;cursor:pointer}
+  .err{color:var(--cherry);margin:12px 0 0}
+  .result{margin-top:32px}
+  .mini{position:relative;width:min(100%,calc(var(--ar,.8) * 62vh));margin:0 auto;aspect-ratio:var(--ar,.8);padding:3.5%;
+    background:var(--paper);box-shadow:0 18px 40px rgba(0,0,0,.45)}
+  .cross-x,.cross-y{position:absolute;z-index:2;pointer-events:none;border:0 dashed rgba(255,61,94,.9)}
+  .cross-x{left:0;right:0;top:var(--y);border-top-width:1.5px}
+  .cross-y{top:0;bottom:0;left:var(--x);border-left-width:1.5px}
+  .facts{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;margin:24px 0 0;font-size:16px}
+  .facts dt{color:var(--muted)}
+  .facts dd{margin:0;font-weight:600}
+  .facts .big{font:600 26px/1.2 var(--hand)}
+  @media print{
+    body{background:#fff;color:#000}
+    .bar,.lookup,.title,.lede{display:none}
+    .facts dt{color:#555}
+    .mini{box-shadow:none;border:1px solid #ccc}
+  }
+</style>
+</head>
+<body>
+<header class="bar">
+  <a class="back" href="../">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+    Kissed prints
+  </a>
+</header>
+<main class="slip">
+  <h1 class="title">Kiss spot</h1>
+  <p class="lede">Paste the client reference from a Stripe order (it looks like <code>s03-8x10-k62-38</code>) to see where the buyer wants the kiss.</p>
+  <form class="lookup">
+    <input id="ref" name="r" aria-label="Client reference" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="s03-8x10-k62-38">
+    <button type="submit">Show</button>
+  </form>
+  <p class="err" hidden></p>
+
+  <section class="result" hidden>
+    <div class="mini">
+      <div class="photo-wrap"><img class="photo" alt=""></div>
+      <span class="cross-x"></span><span class="cross-y"></span>
+      <img class="kiss" src="../kiss.svg" alt="">
+    </div>
+    <dl class="facts"></dl>
+  </section>
+</main>
+
+<script src="../catalog.js"></script>
+<script>
+  (function () {
+    var form = document.querySelector('.lookup');
+    var input = form.querySelector('input');
+    var err = document.querySelector('.err');
+    var result = document.querySelector('.result');
+
+    function inches(pct, total) { return (Math.round(pct / 100 * total * 4) / 4).toFixed(2).replace(/\.?0+$/, ''); }
+
+    function show(code) {
+      code = (code || '').trim();
+      input.value = code;
+      if (!code) return;
+      var m = /^s([A-Za-z0-9]+)-([a-z0-9]+)-k(any|(\d{1,3})-(\d{1,3}))$/.exec(code);
+      var still = m && SHOP.stills.filter(function (s) { return s.id === m[1]; })[0];
+      var size = m && SHOP.sizes.filter(function (s) { return s.id === m[2]; })[0];
+      if (!still || !size) {
+        err.textContent = 'That doesn’t look like a kiss code. It should look like s03-8x10-k62-38.';
+        err.hidden = false; result.hidden = true; return;
+      }
+      err.hidden = true;
+
+      var any = m[3] === 'any';
+      var x = any ? 68 : +m[4], y = any ? 80 : +m[5];
+      var mini = document.querySelector('.mini');
+      mini.style.setProperty('--ar', size.w / size.h);
+      mini.style.setProperty('--x', x + '%');
+      mini.style.setProperty('--y', y + '%');
+      mini.querySelector('.photo').src = '../' + still.img;
+      var kiss = mini.querySelector('.kiss');
+      kiss.style.setProperty('--kw', Math.min(0.9, SHOP.kissWidthIn / size.w) * 100 + '%');
+      kiss.style.setProperty('--x', x + '%');
+      kiss.style.setProperty('--y', y + '%');
+      kiss.style.opacity = any ? '.35' : '';
+      mini.querySelectorAll('.cross-x,.cross-y').forEach(function (el) { el.hidden = any; });
+
+      var rows = [
+        ['Print', 'Still ' + still.id + (still.note ? ' · ' + still.note : '')],
+        ['Size', size.label + ' (' + size.dims + ')'],
+      ];
+      if (any) rows.push(['Kiss', '<span class="big">Your choice ✨</span>']);
+      else rows.push(
+        ['Kiss center', '<span class="big">' + inches(x, size.w) + ' in from the left, ' + inches(y, size.h) + ' in from the top</span>'],
+        ['As a share', x + '% across, ' + y + '% down']
+      );
+      rows.push(['Message', 'If they paid the +$10, it’s under “Message for your print” in the Stripe order.']);
+      document.querySelector('.facts').innerHTML = rows.map(function (r) { return '<dt>' + r[0] + '</dt><dd>' + r[1] + '</dd>'; }).join('');
+      result.hidden = false;
+      history.replaceState(null, '', '?r=' + encodeURIComponent(code));
+    }
+
+    form.addEventListener('submit', function (e) { e.preventDefault(); show(input.value); });
+    show(new URLSearchParams(location.search).get('r') || location.hash.slice(1));
+  })();
+</script>
+</body>
+</html>
